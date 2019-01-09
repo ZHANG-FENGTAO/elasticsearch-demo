@@ -22,5 +22,5 @@ public interface OrderService {
 
     OrderBean insertOrder(OrderBean orderBean);
 
-    Page<OrderBean> findByLocation(Double topLat, Double topLng,Double bottomLat, Double bottomLng, Pageable pageable);
+    Page<OrderBean> findByLocation(Double topLat, Double topLng, Double bottomLat, Double bottomLng, Pageable pageable);
 }

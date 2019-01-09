@@ -2,6 +2,8 @@ package com.zft.elasticsearch.controller;
 
 import com.zft.elasticsearch.entity.OrderBean;
 import com.zft.elasticsearch.service.OrderService;
+import com.zft.elasticsearch.util.ClassDesc;
+import com.zft.elasticsearch.util.MethodDesc;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +21,7 @@ import java.util.List;
 @Api("订单相关")
 @RestController
 @RequestMapping("/api/order")
+@ClassDesc("orderController")
 public class OrderController {
 
     @Autowired
@@ -26,6 +29,7 @@ public class OrderController {
 
     @PostMapping("/insert")
     @ApiOperation("添加")
+    @MethodDesc("insert")
     @ApiImplicitParam(name = "orderBean", value = "订单对象", dataType = "OrderBean",
             required = true, paramType = "body")
     public OrderBean insert(@RequestBody OrderBean orderBean) {
@@ -34,6 +38,7 @@ public class OrderController {
 
     @GetMapping("/findByName/{name}")
     @ApiOperation("查询")
+    @MethodDesc("findByName")
     public List<OrderBean> findByName(@PathVariable String name) {
         return orderService.findByOrderOwnName(name);
     }
@@ -41,12 +46,11 @@ public class OrderController {
 
     @GetMapping("/findByLocation")
     @ApiOperation("地理查询")
+    @MethodDesc("findByLocation")
     public Page<OrderBean> findByLocation(@RequestParam Double topLat,
                                           @RequestParam Double topLng,
                                           @RequestParam Double bottomLat,
                                           @RequestParam Double bottomLng) {
-        return orderService.findByLocation(topLat, topLng, bottomLat, bottomLng, new PageRequest(0, 20));
+        return orderService.findByLocation(topLat, topLng, bottomLat, bottomLng, PageRequest.of(0, 20));
     }
-
-
 }
